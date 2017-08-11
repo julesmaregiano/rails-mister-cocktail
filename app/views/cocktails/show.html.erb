@@ -1,0 +1,18 @@
+<h1><%= @cocktail.name %></h1>
+<h3>Ingrédients</h3>
+
+<h3>Ajouter d'autres ingrédients</h3>
+
+<ul>
+<% @cocktail.doses.each do |dose| %>
+  <li><%= dose.description %> <%= dose.ingredient.name %> <%= link_to "delete", cocktail_dose_path(@cocktail, dose), method: :delete %></li>
+<% end %>
+</ul>
+
+
+<%= simple_form_for [@cocktail, @dose] do |f| %>
+
+  <%= f.input :description, placeholder: "2 teaspoons" %>
+  <%= f.input :ingredient_id, collection: Ingredient.all, prompt: "Choose one" %>
+  <%= f.submit "Add dose" %>
+<% end %>
